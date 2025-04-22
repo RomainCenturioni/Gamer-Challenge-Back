@@ -13,6 +13,7 @@
 | Utilisateur | accéder à une page de création de challenge                             | soumettre un challenge                |
 | Utilisateur | pouvoir soumettre ma réalisation                                        | prouver la réalisation d'un challenge |
 | Utilisateur | pouvoir voter pour les meillleurs participation                         |                                       |
+| Utilisateur | pouvoir voter pour les meillleurs défis                                 |                                       |
 | admin       | pouvoir valider ou non les défis                                        |                                       |
 | admin       | pouvoir valider ou non les réalisations                                 |                                       |
 | admin       | ajouter un nouveau jeu                                                  |                                       |

@@ -8,12 +8,12 @@ Cahier des charges
 - [ ] La définition des besoins (problèmes auxquels répond le projet) et des objectifs (solutions qu'apporte le projet) du projet
 - [ ] Les fonctionnalités du projet (spécifications fonctionnelles)
 
-- [ ] Le MVP (Minimum Viable Product) :
+- [x] Le MVP (Minimum Viable Product) :
 
 - Le projet va faire l'objet de plusieurs étapes : l'idée c'est qu'à chaque étape le produit fonctionne, même si ce n'est pas avec toutes les fonctionnalités qui étaient prévues
 - Il faut se poser la question : pour que mon projet marche, est-ce que telle fonctionnalité doit marcher (MVP) ou être une fonctionnalité annexe ?
 
-- [ ] Les évolutions potentielles (ce qui ne sera pas terminé) : tout ce qui est prévu mais ne fait pas partie du MVP
+- [x] Les évolutions potentielles (ce qui ne sera pas terminé) : tout ce qui est prévu mais ne fait pas partie du MVP
 
 - [x] La liste des technologies utilisées pour le projet, avec justification (spécifications techniques)
 - [x] La définition de la cible du projet (le public visé) : ça permettra entre autres choses d'anticiper certaines contraintes visuelles/ergonomiques/techniques
@@ -31,6 +31,6 @@ Documents relatifs à la BDD
 
 Eléments graphiques
 
-- [ ] Wireframes
+- [x] Wireframes
 - [x] Maquettes
 - [ ] Charte graphique

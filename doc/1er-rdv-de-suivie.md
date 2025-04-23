@@ -9,3 +9,7 @@
 - UI/UX : La couleur prédominante du logo doit être sur les element cliquables (au possible)
 - Les routes : en cours à finir (manque le front) (**_FAIT_**)
 - Arborescence : plus simple / moins complexe (**_FAIT_**)
+
+
+
+retravailler la page admin lui permettre de bloquer une vidéo, evolution possible, les utilisateurs peuvent signaler les vidéos

@@ -33,4 +33,4 @@ Eléments graphiques
 
 - [x] Wireframes
 - [x] Maquettes
-- [ ] Charte graphique
+- [x] Charte graphique

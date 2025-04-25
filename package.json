@@ -1,13 +1,14 @@
 {
   "name": "gamer-challenges-back",
   "version": "1.0.0",
-  "main": "app.js",
+  "main": "index.js",
+  "type": "module",
   "directories": {
     "doc": "doc"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "node --watch /app.js"
+    "dev": "node --watch index.js"
   },
   "repository": {
     "type": "git",
@@ -21,8 +22,15 @@
   "homepage": "https://github.com/O-clock-Samoussas/gamer-challenges-back#readme",
   "description": "",
   "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
     "express": "^5.1.0",
+    "pg": "^8.15.5",
     "postgres": "^3.4.5",
+    "sanitize-html": "^2.16.0",
     "sequelize": "^6.37.7"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "1.9.4"
   }
 }

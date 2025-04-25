@@ -42,6 +42,8 @@ Rechercher un API gratuite de liste de jeux
 | Axios         | 49+    | 45+     | 10+    | 79+             | 36+   |
 | DOMPurify     | ✅      | ✅       | ✅      | ✅             | ✅     |
 
+*Firefox compatible à partir de la 113*
+
 > ✅ : Totalement compatible (aucune restriction majeure)
 >
 > Les versions indiquées correspondent aux versions **minimales recommandées** pour assurer une expérience utilisateur fluide avec les technologies utilisées dans le projet.

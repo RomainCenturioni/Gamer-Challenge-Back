@@ -1,24 +1,25 @@
-import { Model, Datatypes } from "sequelize";
+import { Model, DataTypes } from "sequelize";
 import { sequelize } from './client.js';
 
 export class Challenge extends Model {};
 
 Challenge.init({
     title: {
-        type: Datatypes.STRING(40),
+        type: DataTypes.STRING(40),
         allowNull: false
     },
     description: {
-        type: Datatypes.STRING,
+        type: DataTypes.STRING,
         allowNull: false
     },
     difficuly:{
-        type: Datatypes.STRING(20),
+        type: DataTypes.STRING(20),
         allowNull: false
     },
     status:{
-        types: Datatypes.BOOLEAN,
-        allowNull: false
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: true
     },    
 }, {
     sequelize,

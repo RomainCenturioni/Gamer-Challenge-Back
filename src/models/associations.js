@@ -18,7 +18,7 @@ Platform.belongsToMany(Game, {
 });
 
 Category.hasMany(Challenge, {
-    onDelete:'CASACADE'
+    onDelete:'CASCADE'
 });
 Challenge.belongsTo(Category);
 

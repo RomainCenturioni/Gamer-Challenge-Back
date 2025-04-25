@@ -1,16 +1,17 @@
-import { Model, Datatypes } from 'sequelize';
+import { Model, DataTypes } from 'sequelize';
 import { sequelize } from './client.js';
 
 export class Realization extends Model {}
 
 Realization.init({
   link: {
-    type: Datatypes.STRING,
+    type: DataTypes.STRING,
     allownull: false,
   },
   status: {
-    type: Datatypes.BOOLEAN,
-    allowNull: false
+    type: DataTypes.BOOLEAN,
+    allowNull: false,
+    defaultValue: true
   }
 }, {
     sequelize,

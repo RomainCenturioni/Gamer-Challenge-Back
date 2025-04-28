@@ -12,7 +12,7 @@ Challenge.init({
         type: DataTypes.TEXT,
         allowNull: false
     },
-    difficuly:{
+    difficulty:{
         type: DataTypes.STRING(20),
         allowNull: false
     },

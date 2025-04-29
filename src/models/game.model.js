@@ -1,23 +1,23 @@
-import { Model, Datatypes } from "sequelize";
+import { Model, DataTypes } from "sequelize";
 import { sequelize } from './client.js';
 
 export class Game extends Model{};
 
 Game.init({
     title: {
-        type: Datatypes.STRING(40),
+        type: DataTypes.STRING(40),
         allowNull: false
     },
     description: {
-        type: Datatypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: false
     },
     release: {
-        type: Datatypes.DATEONLY,
+        type: DataTypes.STRING,
         allowNull: false
     },
     kind : {
-        type: Datatypes.STRING(20),
+        type: DataTypes.STRING(20),
         allowNull: false
     }
 }, {

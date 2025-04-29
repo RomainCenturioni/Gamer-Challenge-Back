@@ -1,11 +1,11 @@
-import { Model, Datatypes } from 'sequelize';
+import { Model, DataTypes } from 'sequelize';
 import { sequelize } from './client.js';
 
 export class Platform extends Model{};
 
 Platform.init({
     name: {
-        type: Datatypes.STRING(40),
+        type: DataTypes.STRING(40),
         allowNull: false
     }
 }, {

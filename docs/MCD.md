@@ -1,0 +1,20 @@
+# MCD
+
+CATEGORY: title, decription, color
+DEFINE, 0N CATEGORY, 11 CHALLENGES
+
+Game: title, description, platform, realese, kind
+CHALLENGES: title, description, difficulty, status
+BELONG, 11 GAME, ON CHALLENGES
+
+USER: name, email, password, role
+SUBMIT, 0N CHALLENGES, 11 USER
+LIKE, 0N CHALLENGES, 0N USER
+
+PLATEFORM: name
+SUPPORT, 1N GAME, 0N PLATEFORM
+
+REALIZATION: link, status
+REPRESENT, 11 CHALLENGES, 0N REALIZATION
+MAKE, 11 USER, 0N REALIZATION
+VOTE, 0N USER, 0N REALIZATION

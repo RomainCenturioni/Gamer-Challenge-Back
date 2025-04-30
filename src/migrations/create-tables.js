@@ -1,5 +1,5 @@
 import { sequelize } from "../models/client.js";
-import { Game, Platform, Challenge, User, Realization, Category } from '../models/associations.js';
+import '../models/associations.js';
 
 
 await sequelize.sync({ force: true });

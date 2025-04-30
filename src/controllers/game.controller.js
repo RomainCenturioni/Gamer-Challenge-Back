@@ -3,7 +3,9 @@ import { Game } from "../models/associations.js"
 export const gameController = {
 
     async getAll(_, res) {
-        const games = await Game.findAll();
+        const games = await Game.findAll({
+            include: "platform"
+        });
         res.json(games);
     },
 

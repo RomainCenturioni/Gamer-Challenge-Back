@@ -11,6 +11,7 @@ Game.hasMany(Challenge, {
 Challenge.belongsTo(Game);
 
 Game.belongsToMany(Platform, {
+    as: 'platform',
     through: 'GamePlatform'
 });
 Platform.belongsToMany(Game, {
@@ -38,11 +39,6 @@ User.belongsToMany(Challenge, {
 Challenge.belongsToMany(User, {
     through: 'UserLikeChallenge'
 }); 
-
-User.hasMany(Challenge, {
-    onDelete: 'CASCADE'
-});
-Challenge.belongsTo(User);
 
 User.hasMany(Realization, {
     onDelete: 'CASCADE'

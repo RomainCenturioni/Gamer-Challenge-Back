@@ -1,115 +1,606 @@
-import {  Game, Platform, Challenge,  User, Realization, Category, } from '../models/associations.js';
-import { sequelize } from '../models/client.js';
+import sequelize from '../models/client.js';
+import {
+  Platform,
+  Game,
+  Challenge,
+  Category,
+  Realization,
+  User,
+} from '../models/associations.js';
 
-await Game.bulkCreate([
-  {
-    title: 'Diablo IV',
-    description: "Diablo IV est un jeu vidéo d'action-RPG de type hack 'n' slash développé par Blizzard Entertainment. Il constitue le quatrième épisode principal de la série Diablo, faisant suite à Diablo III sorti en 2012",
-    release: '2023',
-    kind: 'RPG',
-  },
-  {
-    title: 'Rocket League',
-    description: 'Rocket League est un jeu vidéo développé et édité par Psyonix. Il sort en juillet 2015 sur Windows et sur PlayStation 4, en février 2016 sur Xbox One, en septembre 2016 sur Linux et Mac, en novembre 2017 sur Nintendo Switch et en octobre 2021 sur PlayStation 5.',
-    release: '2015',
-    kind: 'Course, Football',
-  },
-  {
-    title: 'Alex Kidd',
-    description: 'Alex Kidd est une série de jeux vidéo créée par Sega en 1986 avec le jeu Alex Kidd in Miracle World. Elle met en scène le personnage Alex Kidd, qui sera la mascotte de Sega avant Sonic.',
-    release: '1986',
-    kind: 'Plateforme',
-  },
-]);
-
-await Platform.bulkCreate([
-  { name: 'PlayStation' },
-  { name: 'Xbox' },
+const platforms = [
+  { name: 'PlayStation 5' },
+  { name: 'PlayStation 4' },
+  { name: 'Xbox Series X|S' },
+  { name: 'Xbox One' },
   { name: 'PC' },
   { name: 'Nintendo Switch' },
-  { name: 'Sega Mégadrive' },
-]);
+  { name: 'Nintendo 3DS' },
+  { name: 'PlayStation Vita' },
+  { name: 'Steam Deck' },
+  { name: 'Sega Mega Drive' },
+  { name: 'Super Nintendo (SNES)' },
+  { name: 'Nintendo Entertainment System (NES)' },
+  { name: 'Game Boy' },
+  { name: 'Game Boy Advance' },
+  { name: 'Nintendo DS' },
+  { name: 'Wii U' },
+  { name: 'Wii' },
+  { name: 'PlayStation 3' },
+  { name: 'Xbox 360' },
+  { name: 'PlayStation 2' },
+  { name: 'GameCube' },
+  { name: 'Dreamcast' },
+  { name: 'Atari 2600' },
+  { name: 'Commodore 64' },
+];
 
-await Challenge.bulkCreate([
+const games = [
   {
-    title: 'Permadeath sur Rocket League',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+    title: 'Alex Kidd',
+    description:
+      'Alex Kidd est une série de jeux vidéo créée par Sega en 1986 avec le jeu Alex Kidd in Miracle World. Elle met en scène le personnage Alex Kidd, qui sera la mascotte de Sega avant Sonic.',
+    release: '1986',
+    kind: 'Plateforme',
+    img: '',
+    platforms: [10], // Sega Mega Drive
+  },
+  {
+    title: 'The Legend of Zelda: Breath of the Wild',
+    description:
+      'Un jeu d’action-aventure en monde ouvert développé par Nintendo, acclamé pour sa liberté et son gameplay innovant.',
+    release: '2017',
+    kind: 'Action-Aventure',
+    img: '',
+    platforms: [6, 16], // Nintendo Switch, Wii U
+  },
+  {
+    title: 'Super Mario Bros.',
+    description:
+      'Un classique de Nintendo qui a défini le genre plateforme à sa sortie sur NES.',
+    release: '1985',
+    kind: 'Plateforme',
+    img: '',
+    platforms: [12, 14, 6], // NES, GBA, Switch
+  },
+  {
+    title: 'Halo: Combat Evolved',
+    description:
+      'Un FPS révolutionnaire développé par Bungie, qui a lancé la franchise Halo sur Xbox.',
+    release: '2001',
+    kind: 'FPS',
+    img: '',
+    platforms: [4, 5, 19], // Xbox One, PC, Xbox 360
+  },
+  {
+    title: 'Final Fantasy VII',
+    description:
+      'Un RPG culte de Square Enix qui a popularisé le genre en Occident.',
+    release: '1997',
+    kind: 'RPG',
+    img: '',
+    platforms: [1, 2, 4, 5, 6, 8], // PS5, PS4, Xbox One, PC, Switch, Vita
+  },
+  {
+    title: 'The Witcher 3: Wild Hunt',
+    description:
+      'Un RPG en monde ouvert acclamé pour son histoire et sa richesse narrative.',
+    release: '2015',
+    kind: 'RPG',
+    img: '',
+    platforms: [1, 2, 3, 4, 5, 6], // PS5, PS4, Xbox Series X, Xbox One, PC, Switch
+  },
+  {
+    title: 'Tetris',
+    description:
+      'Un jeu de puzzle soviétique culte qui est devenu un phénomène mondial.',
+    release: '1984',
+    kind: 'Puzzle',
+    img: '',
+    platforms: [6, 12, 13, 5], // Switch, NES, Game Boy, PC
+  },
+  {
+    title: 'Minecraft',
+    description:
+      'Un jeu sandbox de construction et survie immensément populaire.',
+    release: '2011',
+    kind: 'Sandbox',
+    img: '',
+    platforms: [2, 3, 4, 5, 6], // PS4, Xbox Series X, Xbox One, PC, Switch
+  },
+  {
+    title: 'Grand Theft Auto V',
+    description:
+      'Un jeu d’action-aventure en monde ouvert développé par Rockstar Games.',
+    release: '2013',
+    kind: 'Action-Aventure',
+    img: '',
+    platforms: [1, 2, 3, 4, 5, 18, 19], // PS5, PS4, Xbox Series X, Xbox One, PC, PS3, Xbox 360
+  },
+  {
+    title: 'Red Dead Redemption 2',
+    description:
+      'Un western vidéoludique en monde ouvert salué pour son réalisme et sa narration.',
+    release: '2018',
+    kind: 'Action-Aventure',
+    img: '',
+    platforms: [1, 2, 3, 4, 5], // PS5, PS4, Xbox Series X, Xbox One, PC
+  },
+  {
+    title: 'Doom',
+    description:
+      'Un FPS pionnier sorti en 1993 qui a marqué l’histoire du jeu vidéo.',
+    release: '1993',
+    kind: 'FPS',
+    img: '',
+    platforms: [2, 5, 6, 11, 12], // PS4, PC, Switch, SNES, NES
+  },
+  {
+    title: 'Metal Gear Solid',
+    description:
+      'Un jeu d’infiltration emblématique de Hideo Kojima sorti sur PlayStation.',
+    release: '1998',
+    kind: 'Infiltration',
+    img: '',
+    platforms: [5, 8, 18, 21], // PC, PS Vita, PS3, GameCube
+  },
+  {
+    title: 'Resident Evil',
+    description: 'Un jeu de survie et d’horreur qui a lancé une saga culte.',
+    release: '1996',
+    kind: 'Survival Horror',
+    img: '',
+    platforms: [5, 6, 10, 18, 21], // PC, Switch, Mega Drive, PS3, GameCube
+  },
+  {
+    title: 'Fortnite',
+    description:
+      'Un jeu de bataille royale multijoueur devenu phénomène culturel.',
+    release: '2017',
+    kind: 'Battle Royale',
+    img: '',
+    platforms: [2, 3, 4, 5, 6], // PS4, Xbox Series X, Xbox One, PC, Switch
+  },
+  {
+    title: 'Street Fighter II',
+    description:
+      'Un jeu de combat qui a révolutionné le genre dans les années 90.',
+    release: '1991',
+    kind: 'Combat',
+    img: '',
+    platforms: [2, 6, 10, 11], // PS4, Switch, Mega Drive, SNES
+  },
+  {
+    title: 'Pokémon Rouge et Bleu',
+    description:
+      'Les jeux originaux Pokémon qui ont lancé une franchise mondiale.',
+    release: '1996',
+    kind: 'RPG',
+    img: '',
+    platforms: [6, 7, 13], // Switch, 3DS, Game Boy
+  },
+  {
+    title: 'Call of Duty: Modern Warfare',
+    description:
+      'Un FPS moderne connu pour son réalisme et son mode multijoueur.',
+    release: '2007',
+    kind: 'FPS',
+    img: '',
+    platforms: [4, 5, 17, 18, 19], // Xbox One, PC, Wii, PS3, Xbox 360
+  },
+  {
+    title: 'Animal Crossing: New Horizons',
+    description: 'Un jeu de simulation de vie relaxant sur Nintendo Switch.',
+    release: '2020',
+    kind: 'Simulation',
+    img: '',
+    platforms: [6], // Switch
+  },
+  {
+    title: 'Dark Souls',
+    description:
+      'Un action-RPG connu pour sa difficulté impitoyable et son level design.',
+    release: '2011',
+    kind: 'Action-RPG',
+    img: '',
+    platforms: [2, 4, 5, 6, 18, 19], // PS4, Xbox One, PC, Switch, PS3, Xbox 360
+  },
+  {
+    title: 'Chrono Trigger',
+    description:
+      'Un RPG culte de la Super Nintendo avec un système de combat innovant.',
+    release: '1995',
+    kind: 'RPG',
+    img: '',
+    platforms: [5, 7, 11, 14, 15], // PC, 3DS, SNES, GBA, DS
+  },
+];
+
+const challenges = [
+  {
+    title: 'Speedrun sur Alex Kidd in Miracle World',
+    description: 'Termine le jeu en moins de 30 minutes sans perdre de vie.',
+    difficulty: 'Medium',
+    game: [1],
+    category: [2], // Speedrun
+    user: [2], // Killer75 (Admin)
+  },
+  {
+    title: 'Trouver tous les sanctuaires dans Zelda: Breath of the Wild',
+    description:
+      'Explore chaque recoin d’Hyrule pour débloquer les 120 sanctuaires.',
     difficulty: 'Hard',
-    // GameId: 2,
-    // CategoryId: 3,
-    // UserId: 1
+    game: [2],
+    category: [2], // Speedrun
+    user: [2], // ShadowX
   },
   {
-    title: 'No Hit sur Alex Kidd',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-    difficulty: 'Normal',
-    // GameId: 3,
-    // CategoryId: 2,
-    // UserId: 2
+    title: 'Terminer Super Mario Bros. sans utiliser de warp zones',
+    description: 'Parcours tous les niveaux dans l’ordre sans tricher.',
+    difficulty: 'Medium',
+    game: [3],
+    category: [3], // 100% Completion
+    user: [3], // PixelMaster
   },
   {
-    title: 'Speedrun sur Diablo IV',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-    difficulty: 'Easy',
-    // GameId: 1,
-    // CategoryId: 3,
-    // UserId: 3
-  }
-]);
+    title: 'Finir Halo: Combat Evolved en Légendaire',
+    description: 'Revis le premier épisode de la saga en difficulté maximale.',
+    difficulty: 'Hard',
+    game: [4],
+    category: [5], // Hardcore Mode
+    user: [4], // RoguePlayer
+  },
+  {
+    title: "Battre l'arme émeraude dans Final Fantasy VII",
+    description:
+      'Un boss optionnel redoutable qui mettra ta stratégie à l’épreuve.',
+    difficulty: 'Hard',
+    game: [5],
+    category: [5], // Hardcore Mode
+    user: [5], // GameLord23
+  },
+  {
+    title: 'Terminer The Witcher 3 sans utiliser de potions',
+    description:
+      'Un défi pour les puristes qui mise tout sur l’habileté au combat.',
+    difficulty: 'Hard',
+    game: [6],
+    category: [6], // Minimalist
+    user: [6], // ProGamer007
+  },
+  {
+    title: 'Obtenir tous les succès dans Tetris',
+    description: 'Un défi de précision, de vitesse et de stratégie.',
+    difficulty: 'Medium',
+    game: [7],
+    category: [10], // Achievement Hunter
+    user: [7], // NinjaXtreme
+  },
+  {
+    title: 'Construire une base sous-marine dans Minecraft',
+    description:
+      'Utilise ta créativité pour établir une base fonctionnelle sous l’océan.',
+    difficulty: 'Medium',
+    game: [8],
+    category: [3], // 100% Completion
+    user: [8], // BattleKing
+  },
+  {
+    title: 'Voler un avion de chasse et échapper à 5 étoiles dans GTA V',
+    description: 'Un défi d’action et de timing dans le ciel de Los Santos.',
+    difficulty: 'Medium',
+    game: [9],
+    category: [4], // No Damage
+    user: [9], // MasterChief77
+  },
+  {
+    title: 'Chasser un animal légendaire dans Red Dead Redemption 2',
+    description:
+      'Traque et élimine une bête mythique dans les grands espaces américains.',
+    difficulty: 'Medium',
+    game: [10],
+    category: [7], // Solo
+    user: [10], // EliteGamer
+  },
+  {
+    title: 'Terminer Halo: Combat Evolved sans mourir',
+    description:
+      'Revis le premier épisode de la saga sans faire une seule erreur.',
+    difficulty: 'Hard',
+    game: [4],
+    category: [1], // Permadeath
+    user: [2], // ShadowX (deux défis attribués ici)
+  },
+  {
+    title:
+      'Obtenir tous les animaux de compagnie dans Animal Crossing: New Horizons',
+    description: 'Attrape chaque animal de compagnie disponible dans le jeu.',
+    difficulty: 'Medium',
+    game: [9],
+    category: [3], // 100% Completion
+    user: [7], // NinjaXtreme (deux défis attribués ici)
+  },
+];
 
-await Category.bulkCreate([
-  {
-    title: 'Permadeath',
-    description: 'Une seule vie. Si tu meurs, tu recommences tout.',
-    color:'FC620C'
-  },  {
-    title: 'No hit',
-    description: 'Terminer le jeu,  un niveau ou un boss sans prendre de dégâts.',
-    color:'04BE5E'
-  },  {
-    title: 'Speedrun',
-    description: 'Finir le jeu le plus vite possible (Any%, 100%, Glitchless...)',
-    color:'01BFFC'
-  },
-])
-
-await User.bulkCreate([
+const users = [
   {
     name: 'Killer75',
     password: 'lolilol75',
-    email:'killer75@progamer.fr',
-    role:'User'
+    email: 'killer75@progamer.fr',
+    role: 'Admin',
   },
   {
-    name: 'Gigachad69',
-    password: 'lemeilleur69',
-    email:'Gigachad69@progamer.fr',
-    role:'User'
+    name: 'ShadowX',
+    password: 'shadowx123',
+    email: 'shadowx@gamezone.com',
+    role: 'User',
   },
   {
-    name: 'Macron75',
-    password: 'président00',
-    email:'Macron75@progamer.fr',
-    role:'User'
+    name: 'PixelMaster',
+    password: 'pixelmaster321',
+    email: 'pixelmaster@onlinegamer.net',
+    role: 'User',
   },
   {
-    name: 'Adminous',
-    password: 'Admin55',
-    email:'Admin@progamer.fr',
-    role:'Admin'
+    name: 'RoguePlayer',
+    password: 'rogueplayer456',
+    email: 'rogueplayer@esportplayer.com',
+    role: 'User',
   },
-])
+  {
+    name: 'GameLord23',
+    password: 'gamelord23',
+    email: 'gamelord23@challengetech.org',
+    role: 'User',
+  },
+  {
+    name: 'ProGamer007',
+    password: 'pro007gamer',
+    email: 'progamer007@arcadezone.com',
+    role: 'User',
+  },
+  {
+    name: 'NinjaXtreme',
+    password: 'ninjaxtreme789',
+    email: 'ninjaxtreme@esportacademy.com',
+    role: 'User',
+  },
+  {
+    name: 'BattleKing',
+    password: 'battleking100',
+    email: 'battleking@gameworld.net',
+    role: 'User',
+  },
+  {
+    name: 'MasterChief77',
+    password: 'chiefmaster77',
+    email: 'masterchief77@gaminghub.com',
+    role: 'User',
+  },
+  {
+    name: 'EliteGamer',
+    password: 'elitegamer11',
+    email: 'elitegamer@playzone.co',
+    role: 'User',
+  },
+];
 
-await Realization.bulkCreate([
+const categories = [
   {
-    link: 'https://www.youtube.com/watch?v=Ohv8u9uodeU',
+    title: 'Permadeath',
+    description: 'Une seule vie. Si tu meurs, tu recommences tout.',
+    color: '',
   },
   {
-    link: 'https://www.youtube.com/watch?v=SJvx6G4dg3M',
+    title: 'Speedrun',
+    description: 'Terminer le jeu dans un temps record, sans aucun retard.',
+    color: '',
   },
   {
-    link: 'https://www.youtube.com/watch?v=u79AEvrsS8g',
+    title: '100% Completion',
+    description:
+      'Compléter le jeu à 100%, en débloquant toutes les missions et collectibles.',
+    color: '',
+  },
+  {
+    title: 'No Damage',
+    description: 'Finir le jeu sans subir de dégâts.',
+    color: '',
+  },
+  {
+    title: 'Hardcore Mode',
+    description:
+      'Un mode de jeu particulièrement difficile, avec des ennemis plus forts et moins de ressources.',
+    color: '',
+  },
+  {
+    title: 'Minimalist',
+    description:
+      'Terminer le jeu en utilisant le moins d’objets, d’armes ou de ressources possibles.',
+    color: '',
+  },
+  {
+    title: 'Solo',
+    description: 'Jouer sans aucun coéquipier ou aide extérieure.',
+    color: '',
+  },
+  {
+    title: 'No Items',
+    description: 'Finir le jeu sans utiliser aucun objet pendant l’aventure.',
+    color: '',
+  },
+  {
+    title: 'Randomizer',
+    description:
+      'Jeu où les objets, ennemis et événements sont aléatoirement générés.',
+    color: '',
+  },
+  {
+    title: 'Achievement Hunter',
+    description:
+      'Vise à obtenir tous les succès/achievements disponibles dans le jeu.',
+    color: '',
+  },
+];
+
+const realizations = [
+  {
+    link: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+    status: true,
+    challenge: [1], // Challenge ID pour "Speedrun sur Alex Kidd in Miracle World"
+    user: [2, 4], // ShadowX et RoguePlayer
+  },
+  {
+    link: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+    status: true,
+    challenge: [2], // Challenge ID pour "Trouver tous les sanctuaires dans Zelda: Breath of the Wild"
+    user: [3], // PixelMaster
+  },
+  {
+    link: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+    status: true,
+    challenge: [3], // Challenge ID pour "Terminer Super Mario Bros. sans utiliser de warp zones"
+    user: [5, 7], // GameLord23 et NinjaXtreme
+  },
+  {
+    link: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+    status: true,
+    challenge: [4], // Challenge ID pour "Finir Halo: Combat Evolved en Légendaire"
+    user: [6], // ProGamer007
+  },
+  {
+    link: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+    status: true,
+    challenge: [5], // Challenge ID pour "Battre l'arme émeraude dans Final Fantasy VII"
+    user: [8], // BattleKing
+  },
+  {
+    link: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+    status: true,
+    challenge: [6], // Challenge ID pour "Terminer The Witcher 3 sans utiliser de potions"
+    user: [2, 6], // ShadowX et ProGamer007
+  },
+  {
+    link: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+    status: true,
+    challenge: [7], // Challenge ID pour "Obtenir tous les succès dans Tetris"
+    user: [9], // MasterChief77
+  },
+  {
+    link: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+    status: true,
+    challenge: [8], // Challenge ID pour "Construire une base sous-marine dans Minecraft"
+    user: [7, 10], // NinjaXtreme et EliteGamer
+  },
+  {
+    link: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+    status: true,
+    challenge: [9], // Challenge ID pour "Voler un avion de chasse et échapper à 5 étoiles dans GTA V"
+    user: [8], // BattleKing
+  },
+  {
+    link: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+    status: true,
+    challenge: [10], // Challenge ID pour "Chasser un animal légendaire dans Red Dead Redemption 2"
+    user: [5], // GameLord23
+  },
+];
+
+for (const category of categories) {
+  const newCategory = await Category.create({
+    id: category.id,
+    title: category.title,
+    description: category.description,
+    color: category.color,
+  });
+}
+
+for (const user of users) {
+  const newUser = await User.create({
+    id: user.id,
+    name: user.name,
+    password: user.password,
+    email: user.email,
+    role: user.role,
+  });
+}
+
+for (const platform of platforms) {
+  const newPlatform = await Platform.create({
+    id: platform.id,
+    name: platform.name,
+  });
+}
+
+for (const game of games) {
+  try {
+    const newGame = await Game.create({
+      id: game.id,
+      title: game.title,
+      description: game.description,
+      release: game.release,
+      kind: game.kind,
+    });
+
+    for (const platformId of game.platforms) {
+      const platform = await Platform.findByPk(platformId);
+      await newGame.addPlatform(platform);
+    }
+  } catch (e) {
+    console.log('error with game:', game.name);
+    console.error(e);
   }
-])
+}
+
+for (const challenge of challenges) {
+  try {
+    const newChallenge = await Challenge.create({
+      id: challenge.id,
+      title: challenge.title,
+      description: challenge.description,
+      difficulty: challenge.difficulty,
+    });
+
+    for (const gameId of challenge.game) {
+      const game = await Game.findByPk(gameId);
+      await newChallenge.setGame(game);
+    }
+
+    for (const categoryId of challenge.category) {
+      const category = await Category.findByPk(categoryId);
+      await newChallenge.setCategory(category);
+    }
+
+    for (const userId of challenge.user) {
+      const user = await User.findByPk(userId);
+      await newChallenge.setUser(user);
+    }
+  } catch (e) {
+    console.log('error with challenge:', challenge.name);
+    console.error(e);
+  }
+}
+
+for (const realization of realizations) {
+  try {
+    const newRealization = await Realization.create({
+      id: realization.id,
+      link: realization.link,
+      status: realization.status,
+    });
+
+    for (const challengeId of realization.challenge) {
+      const challenge = await Challenge.findByPk(challengeId);
+      await newRealization.setChallenge(challenge);
+    }
+    for (const userId of realization.user) {
+      const user = await User.findByPk(userId);
+      await newRealization.setUser(user);
+    }
+  } catch (e) {
+    console.log('error with realization:', realization.name);
+    console.error(e);
+  }
+}
 
 await sequelize.close();

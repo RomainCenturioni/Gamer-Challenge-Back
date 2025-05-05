@@ -1,71 +1,81 @@
-import { Game } from "./game.model.js"
-import { Challenge } from "./challenge.model.js"
-import { Realization } from "./realization.model.js"
-import { Category } from "./category.model.js"
-import { User } from "./user.model.js"
-import { Platform } from "./platform.model.js"
+import { Game } from "./game.model.js";
+import { Challenge } from "./challenge.model.js";
+import { Realization } from "./realization.model.js";
+import { Category } from "./category.model.js";
+import { User } from "./user.model.js";
+import { Platform } from "./platform.model.js";
 
 Game.hasMany(Challenge, {
-    onDelete: 'CASCADE'
-}); 
+  onDelete: "CASCADE",
+  foreignKey: "gameId",
+});
 Challenge.belongsTo(Game, {
-    as: 'game'
+  as: "game",
+  foreignKey: "gameId",
 });
 
 Game.belongsToMany(Platform, {
-    as: 'platform',
-    through: 'GamePlatform'
+  as: "platform",
+  through: "GamePlatform",
 });
 Platform.belongsToMany(Game, {
-    through: 'GamePlatform'
+  through: "GamePlatform",
 });
 
 Category.hasMany(Challenge, {
-    onDelete:'CASCADE'
+  onDelete: "CASCADE",
+  foreignKey: "categoryId",
 });
 Challenge.belongsTo(Category, {
-    as: 'category'
+  as: "category",
+  foreignKey: "categoryId",
 });
 
 Challenge.hasMany(Realization, {
-    onDelete:'CASCADE'
+  onDelete: "CASCADE",
+  foreignKey: "challengeId",
 });
 Realization.belongsTo(Challenge, {
-    as: 'challenge'
+  as: "challenge",
+  foreignKey: "challengeId",
 });
 
 User.hasMany(Challenge, {
-    onDelete: 'CASCADE'
+  onDelete: "CASCADE",
+  foreignKey: "userId",
 });
 Challenge.belongsTo(User, {
-    as: 'user'
+  as: "user",
+  foreignKey: "userId",
 });
 
 User.belongsToMany(Challenge, {
-    through: 'UserLikeChallenge',
-    foreinKey: 'user_id',
-    otherKey: 'challenge_id',
-    as: 'like'
+  through: "UserLikeChallenge",
+  foreignKey: "user_id",
+  otherKey: "challenge_id",
+  as: "like",
 });
 Challenge.belongsToMany(User, {
-    through: 'UserLikeChallenge',
-    foreinKey: 'challenge_id',
-    otherKey: 'user_id',
-    as: 'popularity'
-}); 
+  through: "UserLikeChallenge",
+  foreignKey: "challenge_id",
+  otherKey: "user_id",
+  as: "popularity",
+});
 
 User.hasMany(Realization, {
-    onDelete: 'CASCADE'
+  onDelete: "CASCADE",
+  foreignKey: "userId",
 });
 Realization.belongsTo(User, {
-    as: 'user'
+  as: "user",
+  foreignKey: "userId",
 });
 
 User.belongsToMany(Realization, {
-    through: 'UserRealization'
+  through: "UserRealization",
 });
 Realization.belongsToMany(User, {
-    through: 'UserRealization'
+  through: "UserRealization",
 });
 
 export { Game, Platform, Challenge, User, Realization, Category };

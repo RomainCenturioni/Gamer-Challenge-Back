@@ -40,3 +40,9 @@ router.route('/Realizations')
 
 router.route('/Realizations/:id')
 .delete(realizationController.delete)
+
+router.route('/LastRealizations')
+.get(realizationController.getHomepageLastRealization)
+
+router.route('/PopularChallenges')
+.get(challengeController.getHomepageMostPopular)

@@ -23,3 +23,10 @@ A faire :
 -définir les endpoints /middlewares
 -controllers
 -gestion des erreurs à voir
+
+# 05/05
+
+- Retravailler les routes et controllers pour faire des requêtes adaptés à nos pages front ,essayer de lier RAWG
+- S'occuper de l'authentification
+- Ajouter de la sécurité
+- déployer le serveur et la BDD sur Railway

@@ -1,0 +1,34 @@
+1 Page d'accueil : 
+ - 3 défis les plus populaires (avec jeu , créateur ,catégorie )
+ - 3 dernières réalisations (avec le jeu, réalisateur, catégorie)
+
+2 Page détails d'un défi :
+ - défi ( avec jeu, créateur, nombre de like, catégorie, les 3/4 meilleurs réalisateurs, 3 dernières réalisations)
+
+Page de tous les défis :
+ - défis (jeu, 3 dernières réalisations, catégories, nombres de réalisations )
+
+3 Page de tous les jeux :
+ - jeux ( platform )
+
+Page détails d'un jeu :
+ - jeu (derniers défis, 3 meilleurs réalisation sur ce défis)
+
+Page des catégories :
+ - Catégories ( Dernières réalisation, jeu )
+
+Page d'une Catégorie :
+ - Catégorie ( 3 Dernières réalisations avec jeux et réalisateur et nombre de votes )
+
+Page d'une réalisation :
+- Réalisation ( avec jeu , réalisateur, nombre de votes , catégorie)
+
+Page des exploits d'un autre utilisateur : 
+- User ( les défis réalisés, les défis proposés avec catégorie et jeu  )
+
+Page Mes Exploits d'un utilisateur : 
+- User ( les défis réalisés et proposés)
+
+Page Admin : 
+- jeux (avec nombre de défis et réalisations )
+- réalisation signalées 

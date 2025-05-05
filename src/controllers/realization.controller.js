@@ -12,6 +12,13 @@ export const realizationController = {
         const realization = await Realization.findByPk(id);
         await realization.destroy()
         res.status(204).json()
+    },
+    async getHomepageLastRealization (_, res) {
+        const threeLastRealization = await Realization.findAll({
+            include: ['challenge', 'user',],
+            limit: 3,
+            order: [['createdAt', 'DESC']]
+        });
+        res.json(threeLastRealization)
     }
-
 }

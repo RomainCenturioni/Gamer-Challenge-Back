@@ -2,12 +2,16 @@ import { Challenge } from '../models/associations.js';
 
 export const challengeController = {
   async getAll(_, res) {
-    const challenges = await Challenge.findAll();
+    const challenges = await Challenge.findAll({
+      include: ['game', 'category']
+    });
     res.json(challenges);
   },
   async getOne(req, res) {
     const { id } = req.params;
-    const challenge = await Challenge.findByPk(id);
+    const challenge = await Challenge.findByPk(id, {
+      include: ['game', 'category', 'user']
+    });
     res.json(challenge);
   },
   async create(req, res) {

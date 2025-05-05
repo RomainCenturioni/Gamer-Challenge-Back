@@ -3,7 +3,9 @@ import { Category } from "../models/associations.js"
 export const categoryController = {
 
     async getAll(_, res) {
-        const categories = await Category.findAll();
+        const categories = await Category.findAll({
+            include: 'game'
+        });
         res.json(categories);
     },
 

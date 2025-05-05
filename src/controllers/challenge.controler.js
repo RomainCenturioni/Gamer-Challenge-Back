@@ -1,5 +1,5 @@
-import { Challenge } from '../models/associations.js';
-
+import { Challenge } from "../models/associations.js";
+import { sequelize } from "../models/client.js"; // <-- importe bien l'instance Sequelize
 export const challengeController = {
   async getAll(_, res) {
     const challenges = await Challenge.findAll();
@@ -29,11 +29,29 @@ export const challengeController = {
     res.status(204).json();
   },
   async getHomepageMostPopular(_, res) {
-    const ThreeMostPopularChallenges = await Challenge.findAll({
-      include: ['game', 'category', 'user', 'popularity'],
-      limit: 3,
-      order: [['title', 'DESC']],
-    });
-    res.json(ThreeMostPopularChallenges);
-  }
+    try {
+      const ThreeMostPopularChallenges = await Challenge.findAll({
+        include: ["game", "category", "user"], // Suffisant si les relations sont bien définies
+        attributes: {
+          include: [
+            [
+              sequelize.literal(`(
+                SELECT COUNT(*) 
+                FROM "UserLikeChallenge" 
+                WHERE "UserLikeChallenge"."ChallengeId" = "Challenge"."id"
+              )`),
+              "likeCount",
+            ],
+          ],
+        },
+        order: [[sequelize.literal(`"likeCount"`), "DESC"]],
+        limit: 3,
+      });
+
+      res.json(ThreeMostPopularChallenges);
+    } catch (error) {
+      console.error("Erreur récupération challenges populaires :", error);
+      res.status(500).json({ message: "Erreur serveur", error: error.message });
+    }
+  },
 };

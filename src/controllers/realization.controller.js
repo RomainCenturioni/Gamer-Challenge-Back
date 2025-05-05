@@ -1,7 +1,6 @@
-import { Realization } from "../models/associations.js"
+import { Realization } from "../models/associations.js";
 
 export const realizationController = {
-
     async create(req, res) {
         const inputData = req.body;
         const realization = await Realization.create(inputData);

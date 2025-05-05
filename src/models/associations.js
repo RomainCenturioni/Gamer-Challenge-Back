@@ -24,6 +24,7 @@ Platform.belongsToMany(Game, {
 
 Category.hasMany(Challenge, {
   onDelete: "CASCADE",
+  as: "challenge",
   foreignKey: "categoryId",
 });
 Challenge.belongsTo(Category, {
@@ -33,6 +34,7 @@ Challenge.belongsTo(Category, {
 
 Challenge.hasMany(Realization, {
   onDelete: "CASCADE",
+  as: "realization",
   foreignKey: "challengeId",
 });
 Realization.belongsTo(Challenge, {

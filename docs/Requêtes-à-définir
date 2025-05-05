@@ -1,15 +1,15 @@
-1 Page d'accueil : 
+// 1 Page d'accueil : 
  - 3 défis les plus populaires (avec jeu , créateur ,catégorie )
  - 3 dernières réalisations (avec le jeu, réalisateur, catégorie)
 
-2 Page détails d'un défi :
+// 2 Page détails d'un défi :
  - défi ( avec jeu, créateur, nombre de like, catégorie, les 3/4 meilleurs réalisateurs, 3 dernières réalisations)
 
-Page de tous les défis :
+// Page de tous les défis :
  - défis (jeu, 3 dernières réalisations, catégories, nombres de réalisations )
 
-3 Page de tous les jeux :
- - jeux ( platform )
+// 3 Page de tous les jeux :
+ // - jeux ( platform )
 
 Page détails d'un jeu :
  - jeu (derniers défis, 3 meilleurs réalisation sur ce défis)

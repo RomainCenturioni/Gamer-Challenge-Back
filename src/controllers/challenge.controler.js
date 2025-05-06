@@ -42,7 +42,7 @@ export const challengeController = {
               sequelize.literal(`(
                 SELECT COUNT(*) 
                 FROM "UserLikeChallenge" 
-                WHERE "UserLikeChallenge"."ChallengeId" = "Challenge"."id"
+                WHERE "UserLikeChallenge"."challenge_id" = "Challenge"."id"
               )`),
               "likeCount",
             ],

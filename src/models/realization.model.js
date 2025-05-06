@@ -6,7 +6,7 @@ export class Realization extends Model {}
 Realization.init({
   link: {
     type: DataTypes.STRING,
-    allownull: false,
+    allowNull: false,
   },
   status: {
     type: DataTypes.BOOLEAN,

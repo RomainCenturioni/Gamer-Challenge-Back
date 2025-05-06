@@ -25,13 +25,17 @@
   "homepage": "https://github.com/O-clock-Samoussas/gamer-challenges-back#readme",
   "description": "",
   "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
     "pg": "^8.15.5",
     "postgres": "^3.4.5",
     "sanitize-html": "^2.16.0",
-    "sequelize": "^6.37.7"
+    "sequelize": "^6.37.7",
+    "validator": "^13.15.0"
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4"

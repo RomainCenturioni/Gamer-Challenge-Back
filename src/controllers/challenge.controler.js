@@ -1,5 +1,6 @@
 import { Challenge } from "../models/associations.js";
-import { sequelize } from "../models/client.js"; // <-- importe bien l'instance Sequelize
+import { sequelize } from "../models/client.js"; //
+
 export const challengeController = {
   async getAll(_, res) {
     const challenges = await Challenge.findAll({
@@ -35,7 +36,7 @@ export const challengeController = {
   async getHomepageMostPopular(_, res) {
     try {
       const ThreeMostPopularChallenges = await Challenge.findAll({
-        include: ["game", "category", "user"], // Suffisant si les relations sont bien définies
+        include: ["game", "category", "user"],
         attributes: {
           include: [
             [

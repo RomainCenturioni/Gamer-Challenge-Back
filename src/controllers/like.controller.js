@@ -1,11 +1,12 @@
-import { UserLikeChallenge, UserLikeRealization} from '../models/associations.js';
+import { UserLikeChallenge} from '../models/userlikechallenge.model.js';
+import { UserLikeRealization } from '../models/userlikerealization.model.js';
 
-export const like = {
+export const Userlike = {
 
   async challenge(req, res) {
     const userId = req.user.id;
     const challengeId = req.params.id;
-
+    console.log(userId);
     const [_, created] = await UserLikeChallenge.findOrCreate({
       where: { user_id: userId, challenge_id: challengeId },
     });

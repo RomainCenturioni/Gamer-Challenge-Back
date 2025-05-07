@@ -1,16 +1,29 @@
-import { Challenge } from "../models/associations.js";
-import { sequelize } from "../models/client.js"; // <-- importe bien l'instance Sequelize
+import { Challenge } from '../models/associations.js';
+import { sequelize } from '../models/client.js'; // <-- importe bien l'instance Sequelize
 export const challengeController = {
   async getAll(_, res) {
     const challenges = await Challenge.findAll({
-      include: ["game", "category"],
+      include: ['game', 'category'],
     });
     res.json(challenges);
   },
   async getOne(req, res) {
     const { id } = req.params;
+    console.log(req);
     const challenge = await Challenge.findByPk(id, {
-      include: ["game", "category", "user"],
+      include: ['game', 'category', 'user'],
+      attributes: {
+        include: [
+          [
+            sequelize.literal(`(
+              SELECT COUNT(*) 
+              FROM "UserLikeChallenge" 
+              WHERE "UserLikeChallenge"."challenge_id" = "Challenge"."id"
+            )`),
+            'likeCount',
+          ],
+        ],
+      },
     });
     res.json(challenge);
   },
@@ -35,7 +48,7 @@ export const challengeController = {
   async getHomepageMostPopular(_, res) {
     try {
       const ThreeMostPopularChallenges = await Challenge.findAll({
-        include: ["game", "category", "user"], // Suffisant si les relations sont bien définies
+        include: ['game', 'category', 'user'], // Suffisant si les relations sont bien définies
         attributes: {
           include: [
             [
@@ -44,18 +57,18 @@ export const challengeController = {
                 FROM "UserLikeChallenge" 
                 WHERE "UserLikeChallenge"."challenge_id" = "Challenge"."id"
               )`),
-              "likeCount",
+              'likeCount',
             ],
           ],
         },
-        order: [[sequelize.literal(`"likeCount"`), "DESC"]],
+        order: [[sequelize.literal(`"likeCount"`), 'DESC']],
         limit: 3,
       });
 
       res.json(ThreeMostPopularChallenges);
     } catch (error) {
-      console.error("Erreur récupération challenges populaires :", error);
-      res.status(500).json({ message: "Erreur serveur", error: error.message });
+      console.error('Erreur récupération challenges populaires :', error);
+      res.status(500).json({ message: 'Erreur serveur', error: error.message });
     }
   },
 };

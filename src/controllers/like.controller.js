@@ -1,6 +1,8 @@
-import { UserLikeChallenge } from '../models/userlikechallenge.model.js';
-import { UserLikeRealization } from '../models/userlikerealization.model.js';
+
 import jwt from 'jsonwebtoken';
+import { UserLikeChallenge } from "../models/userlikechallenge.model.js";
+import { UserLikeRealization } from "../models/userlikerealization.model.js";
+
 
 export const Userlike = {
   async challenge(req, res) {
@@ -16,9 +18,9 @@ export const Userlike = {
     });
 
     if (!created) {
-      return res.status(400).json({ message: 'Déjà liké !' });
+      return res.status(400).json({ message: "Déjà liké !" });
     }
-    res.status(201).json({ message: 'Challenge liké !' });
+    res.status(201).json({ message: "Challenge liké !" });
   },
 
   async realization(req, res) {
@@ -34,8 +36,8 @@ export const Userlike = {
     });
 
     if (!created) {
-      return res.status(400).json({ message: 'Déjà liké !' });
+      return res.status(400).json({ message: "Déjà liké !" });
     }
-    res.status(201).json({ message: 'Challenge liké !' });
+    res.status(201).json({ message: "Challenge liké !" });
   },
 };

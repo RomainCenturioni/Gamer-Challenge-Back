@@ -28,7 +28,6 @@ export const authController = {
 
       res.status(201).json({ message: "Compte créé", userId: newUser.id });
     } catch (err) {
-      console.error("Erreur dans la création de compte:", err);
       res.status(500).json({ error: "Erreur lors de la création du compte" });
     }
   },
@@ -56,13 +55,11 @@ export const authController = {
 
       res.status(200).json({ message: "Connexion réussie", pseudo: user.name });
     } catch (err) {
-      console.error("Erreur dans la connexion:", err);
       res.status(500).json({ error: "Erreur lors de la connexion" });
     }
   },
   async me(req, res) {
     const token = req.cookies.token;
-    console.log("Token reçu côté serveur:", token); // Ajouter ce log
 
     if (!token) {
       return res.status(401).json({ error: "Non authentifié" });
@@ -70,16 +67,18 @@ export const authController = {
 
     try {
       const payload = jwt.verify(token, JWT_SECRET);
-      console.log("Payload décrypté:", payload); // Ajouter ce log
       res.json({ pseudo: payload.name });
     } catch (err) {
-      console.error("Erreur de vérification du token:", err);
       res.status(401).json({ error: "Token invalide ou expiré" });
     }
   },
 
   async logout(req, res) {
-    res.clearCookie("token");
+    res.clearCookie("token", {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production", // ← virgule ajoutée ici
+      sameSite: "strict",
+    });
     res.status(200).json({ message: "Déconnecté" });
   },
 };

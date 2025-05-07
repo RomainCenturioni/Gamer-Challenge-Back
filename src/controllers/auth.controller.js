@@ -49,7 +49,7 @@ export const authController = {
       res.cookie("token", token, {
         httpOnly: true,
         secure: false, // ← true seulement en prod
-        sameSite: "strict",
+        sameSite: "none",
         maxAge: 2 * 60 * 60 * 1000,
       });
 

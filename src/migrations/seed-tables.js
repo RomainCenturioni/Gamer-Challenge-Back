@@ -7,6 +7,8 @@ import {
   Realization,
   User,
 } from '../models/associations.js';
+import { UserLikeChallenge } from '../models/userlikechallenge.model.js';
+import { UserLikeRealization } from '../models/userlikerealization.model.js';
 
 const platforms = [
   { name: 'PlayStation 5' },
@@ -506,6 +508,32 @@ const realizations = [
   },
 ];
 
+const challengeLikes = [
+  { user_id: 1, challenge_id: 2 },
+  { user_id: 2, challenge_id: 1 },
+  { user_id: 3, challenge_id: 3 },
+  { user_id: 4, challenge_id: 4 },
+  { user_id: 5, challenge_id: 1 },
+  { user_id: 6, challenge_id: 2 },
+  { user_id: 7, challenge_id: 6 },
+  { user_id: 8, challenge_id: 9 },
+  { user_id: 9, challenge_id: 5 },
+  { user_id: 10, challenge_id: 7 },
+];
+
+const realizationLikes = [
+  { user_id: 1, realization_id: 2 },
+  { user_id: 2, realization_id: 1 },
+  { user_id: 3, realization_id: 3 },
+  { user_id: 4, realization_id: 4 },
+  { user_id: 5, realization_id: 1 },
+  { user_id: 6, realization_id: 2 },
+  { user_id: 7, realization_id: 6 },
+  { user_id: 8, realization_id: 9 },
+  { user_id: 9, realization_id: 5 },
+  { user_id: 10, realization_id: 7 },
+];
+
 for (const category of categories) {
   const newCategory = await Category.create({
     id: category.id,
@@ -601,6 +629,20 @@ for (const realization of realizations) {
     console.log('error with realization:', realization.name);
     console.error(e);
   }
+}
+
+for (const likeChallenge of challengeLikes) {
+  const newUserLikeChallenge = await UserLikeChallenge.create({
+    user_id: likeChallenge.user_id,
+    challenge_id: likeChallenge.challenge_id
+  });
+}
+
+for (const likerealization of realizationLikes) {
+  const newUserLikerealization = await UserLikeRealization.create({
+    user_id: likerealization.user_id,
+    realization_id: likerealization.realization_id,
+  });
 }
 
 await sequelize.close();

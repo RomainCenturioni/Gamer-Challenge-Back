@@ -4,6 +4,8 @@ import { Realization } from "./realization.model.js";
 import { Category } from "./category.model.js";
 import { User } from "./user.model.js";
 import { Platform } from "./platform.model.js";
+import { UserLikeChallenge } from "./userlikechallenge.model.js";
+import { UserLikeRealization } from "./userlikerealization.model.js";
 
 Game.hasMany(Challenge, {
   onDelete: "CASCADE",
@@ -52,16 +54,16 @@ Challenge.belongsTo(User, {
 });
 
 User.belongsToMany(Challenge, {
-  through: "UserLikeChallenge",
+  through: UserLikeChallenge,
   foreignKey: "user_id",
   otherKey: "challenge_id",
-  as: "like",
+  as: "likeChallenge",
 });
 Challenge.belongsToMany(User, {
-  through: "UserLikeChallenge",
+  through: UserLikeChallenge,
   foreignKey: "challenge_id",
   otherKey: "user_id",
-  as: "popularity",
+  as: "likedChallenge",
 });
 
 User.hasMany(Realization, {
@@ -74,10 +76,16 @@ Realization.belongsTo(User, {
 });
 
 User.belongsToMany(Realization, {
-  through: "UserRealization",
+  through: UserLikeRealization,
+  foreignKey: "user_id",
+  otherKey: "realization_id",
+  as: "likeRealization",
 });
 Realization.belongsToMany(User, {
-  through: "UserRealization",
+  through: UserLikeRealization,
+  foreignKey: "realization_id",
+  otherKey: "user_id",
+  as: "likedRealization",
 });
 
 export { Game, Platform, Challenge, User, Realization, Category };

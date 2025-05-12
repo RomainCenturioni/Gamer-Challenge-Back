@@ -5,6 +5,7 @@ export const challengeController = {
   async getAll(_, res) {
     const challenges = await Challenge.findAll({
       include: ["game", "category"],
+      order: [["createdAt", "DESC"]],
     });
     res.json(challenges);
   },

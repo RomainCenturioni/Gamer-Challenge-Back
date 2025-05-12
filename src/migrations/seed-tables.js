@@ -359,52 +359,52 @@ const categories = [
   {
     title: "Permadeath",
     description: "Une seule vie. Si tu meurs, tu recommences tout.",
-    color: "",
+    color: "#8B0000",
   },
   {
     title: "Speedrun",
     description: "Terminer le jeu dans un temps record, sans aucun retard.",
-    color: "",
+    color: "#FF8C00",
   },
   {
     title: "100% Completion",
     description: "Compléter le jeu à 100%, en débloquant toutes les missions et collectibles.",
-    color: "",
+    color: "#228B22",
   },
   {
     title: "No Damage",
     description: "Finir le jeu sans subir de dégâts.",
-    color: "",
+    color: "#4169E1",
   },
   {
     title: "Hardcore Mode",
     description: "Un mode de jeu particulièrement difficile, avec des ennemis plus forts et moins de ressources.",
-    color: "",
+    color: "#800080",
   },
   {
     title: "Minimalist",
     description: "Terminer le jeu en utilisant le moins d’objets, d’armes ou de ressources possibles.",
-    color: "",
+    color: "#708090",
   },
   {
     title: "Solo",
     description: "Jouer sans aucun coéquipier ou aide extérieure.",
-    color: "",
+    color: "#2F4F4F",
   },
   {
     title: "No Items",
     description: "Finir le jeu sans utiliser aucun objet pendant l’aventure.",
-    color: "",
+    color: "#A52A2A",
   },
   {
     title: "Randomizer",
     description: "Jeu où les objets, ennemis et événements sont aléatoirement générés.",
-    color: "",
+    color: "#DA70D6",
   },
   {
     title: "Achievement Hunter",
     description: "Vise à obtenir tous les succès/achievements disponibles dans le jeu.",
-    color: "",
+    color: "#FFD700",
   },
 ];
 

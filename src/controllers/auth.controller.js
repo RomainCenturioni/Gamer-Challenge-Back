@@ -48,8 +48,8 @@ export const authController = {
       const token = jwt.sign({ id: user.id, name: user.name, email: user.email, role: user.role }, JWT_SECRET, { expiresIn: "2h" });
       res.cookie("token", token, {
         httpOnly: true,
-        secure: false, // ← true seulement en prod
-        sameSite: "none",
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "strict",
         maxAge: 2 * 60 * 60 * 1000,
       });
 

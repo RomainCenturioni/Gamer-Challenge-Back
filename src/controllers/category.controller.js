@@ -12,12 +12,14 @@ export const categoryController = {
               model: Realization,
               as: "realization",
               limit: 3,
+              order: [["createdAt", "DESC"]],
             },
             {
               model: Game,
               as: "game",
             },
           ],
+          order: [["createdAt", "DESC"]],
         },
       ],
     });

@@ -1,33 +1,87 @@
-import { Challenge } from "../models/associations.js";
+import { Challenge, Game, Category, User, Realization } from "../models/associations.js";
 import { sequelize } from "../models/client.js"; //
-
+import jwt from "jsonwebtoken";
+import { UserLikeChallenge } from "../models/userlikechallenge.model.js";
 export const challengeController = {
   async getAll(_, res) {
-    const challenges = await Challenge.findAll({
-      include: ["game", "category"],
-      order: [["createdAt", "DESC"]],
-    });
-    res.json(challenges);
+    try {
+      const challenges = await Challenge.findAll({
+        include: [
+          { model: Game, as: "game" },
+          { model: Category, as: "category" },
+          {
+            model: Realization,
+            as: "realization",
+            include: [{ model: User, as: "user", attributes: ["id", "name"] }],
+          },
+        ],
+        order: [["createdAt", "DESC"]],
+      });
+
+      res.json(challenges);
+    } catch (error) {
+      console.error("Erreur getAll challenges:", error);
+      res.status(500).json({ error: "Erreur serveur" });
+    }
   },
   async getOne(req, res) {
     const { id } = req.params;
-    console.log(req);
-    const challenge = await Challenge.findByPk(id, {
-      include: ["game", "category", "user"],
-      attributes: {
+    const token = req.cookies.token; // Récupérer le token de l'utilisateur
+
+    try {
+      // Récupérer le challenge avec le nombre de likes
+      const challenge = await Challenge.findByPk(id, {
         include: [
-          [
-            sequelize.literal(`(
-              SELECT COUNT(*) 
-              FROM "UserLikeChallenge" 
-              WHERE "UserLikeChallenge"."challenge_id" = "Challenge"."id"
-            )`),
-            "likeCount",
-          ],
+          { model: Game, as: "game" },
+          { model: Category, as: "category" },
+          { model: User, as: "creator", attributes: ["id", "name"] },
+          {
+            model: Realization,
+            as: "realization",
+            include: [{ model: User, as: "user", attributes: ["id", "name"] }],
+          },
         ],
-      },
-    });
-    res.json(challenge);
+        attributes: {
+          include: [
+            [
+              sequelize.literal(`(
+                SELECT COUNT(*) 
+                FROM "UserLikeChallenge" 
+                WHERE "UserLikeChallenge"."challenge_id" = "Challenge"."id"
+              )`),
+              "likeCount",
+            ],
+          ],
+        },
+      });
+
+      if (!challenge) {
+        return res.status(404).json({ message: "Challenge non trouvé" });
+      }
+
+      let isLiked = false;
+
+      if (token) {
+        // Si l'utilisateur est connecté, on vérifie s'il a liké ce challenge
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const { id: userId } = decoded;
+
+        const existingLike = await UserLikeChallenge.findOne({
+          where: { user_id: userId, challenge_id: id },
+        });
+
+        isLiked = !!existingLike;
+      }
+
+      return res.json({
+        ...challenge.toJSON(),
+        likeCount: Number(challenge.get("likeCount")),
+        isLiked,
+      });
+    } catch (error) {
+      console.error("Erreur lors de la récupération du challenge :", error);
+      return res.status(500).json({ message: "Erreur serveur" });
+    }
   },
   async create(req, res) {
     const inputData = req.body;
@@ -50,7 +104,7 @@ export const challengeController = {
   async getHomepageMostPopular(_, res) {
     try {
       const ThreeMostPopularChallenges = await Challenge.findAll({
-        include: ["game", "category", "user"],
+        include: ["game", "category", { association: "creator", attributes: ["id", "name"] }],
 
         attributes: {
           include: [

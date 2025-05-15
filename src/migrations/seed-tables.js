@@ -286,11 +286,7 @@ const challenges = [
     title: "Obtenir tous les animaux de compagnie dans Animal Crossing: New Horizons",
     description: "Attrape chaque animal de compagnie disponible dans le jeu.",
     difficulty: "Medium",
-<<<<<<< HEAD
     game: [18],
-=======
-    game: [9],
->>>>>>> liaison-api-externe
     category: [3], // 100% Completion
     user: [7], // NinjaXtreme (deux défis attribués ici)
   },
@@ -417,11 +413,7 @@ const realizations = [
     link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
     status: true,
     challenge: [1], // Challenge ID pour "Speedrun sur Alex Kidd in Miracle World"
-<<<<<<< HEAD
     user: [2], // ShadowX
-=======
-    user: [2, 4], // ShadowX et RoguePlayer
->>>>>>> liaison-api-externe
   },
   {
     link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
@@ -433,11 +425,7 @@ const realizations = [
     link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
     status: true,
     challenge: [3], // Challenge ID pour "Terminer Super Mario Bros. sans utiliser de warp zones"
-<<<<<<< HEAD
     user: [5], // GameLord23
-=======
-    user: [5, 7], // GameLord23 et NinjaXtreme
->>>>>>> liaison-api-externe
   },
   {
     link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
@@ -455,11 +443,7 @@ const realizations = [
     link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
     status: true,
     challenge: [6], // Challenge ID pour "Terminer The Witcher 3 sans utiliser de potions"
-<<<<<<< HEAD
     user: [2], // ShadowX
-=======
-    user: [2, 6], // ShadowX et ProGamer007
->>>>>>> liaison-api-externe
   },
   {
     link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
@@ -471,11 +455,7 @@ const realizations = [
     link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
     status: true,
     challenge: [8], // Challenge ID pour "Construire une base sous-marine dans Minecraft"
-<<<<<<< HEAD
     user: [7], // NinjaXtreme
-=======
-    user: [7, 10], // NinjaXtreme et EliteGamer
->>>>>>> liaison-api-externe
   },
   {
     link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
@@ -489,7 +469,6 @@ const realizations = [
     challenge: [10], // Challenge ID pour "Chasser un animal légendaire dans Red Dead Redemption 2"
     user: [5], // GameLord23
   },
-<<<<<<< HEAD
   {
     link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
     status: true,
@@ -502,8 +481,6 @@ const realizations = [
     challenge: [10], // Challenge ID pour "Chasser un animal légendaire dans Red Dead Redemption 2"
     user: [6], // GameLord23
   },
-=======
->>>>>>> liaison-api-externe
 ];
 
 const challengeLikes = [

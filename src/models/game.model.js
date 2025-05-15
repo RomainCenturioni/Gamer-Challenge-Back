@@ -19,12 +19,9 @@ Game.init({
     kind : {
         type: DataTypes.STRING(20),
         allowNull: false
-<<<<<<< HEAD
-=======
     },
     image: {
         type: DataTypes.STRING
->>>>>>> liaison-api-externe
     }
 }, {
     sequelize,

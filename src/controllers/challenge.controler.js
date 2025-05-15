@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import { Challenge, Game, Category, User, Realization } from "../models/associations.js";
 import { sequelize } from "../models/client.js"; //
 import jwt from "jsonwebtoken";
@@ -83,38 +82,6 @@ export const challengeController = {
       console.error("Erreur lors de la récupération du challenge :", error);
       return res.status(500).json({ message: "Erreur serveur" });
     }
-=======
-import { Challenge } from "../models/associations.js";
-import { sequelize } from "../models/client.js"; //
-
-export const challengeController = {
-  async getAll(_, res) {
-    const challenges = await Challenge.findAll({
-      include: ["game", "category"],
-      order: [["createdAt", "DESC"]],
-    });
-    res.json(challenges);
-  },
-  async getOne(req, res) {
-    const { id } = req.params;
-    console.log(req);
-    const challenge = await Challenge.findByPk(id, {
-      include: ["game", "category", "user"],
-      attributes: {
-        include: [
-          [
-            sequelize.literal(`(
-              SELECT COUNT(*) 
-              FROM "UserLikeChallenge" 
-              WHERE "UserLikeChallenge"."challenge_id" = "Challenge"."id"
-            )`),
-            "likeCount",
-          ],
-        ],
-      },
-    });
-    res.json(challenge);
->>>>>>> liaison-api-externe
   },
   async create(req, res) {
     const inputData = req.body;
@@ -137,11 +104,7 @@ export const challengeController = {
   async getHomepageMostPopular(_, res) {
     try {
       const ThreeMostPopularChallenges = await Challenge.findAll({
-<<<<<<< HEAD
         include: ["game", "category", { association: "creator", attributes: ["id", "name"] }],
-=======
-        include: ["game", "category", "user"],
->>>>>>> liaison-api-externe
 
         attributes: {
           include: [

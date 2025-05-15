@@ -1,5 +1,7 @@
-import { Game } from "../models/associations.js";
-import axios from "axios";
+
+import { Game, Platform } from '../models/associations.js';
+import axios from 'axios';
+
 
 export const gameController = {
   async getAll(_, res) {
@@ -80,7 +82,23 @@ export const gameController = {
         console.log("Déjà importé !");
         return res.status(409).json({ message: "Déjà importé !" });
       }
+      // Récupération des platforms en du jeu
+      const platforms = game.platforms || [];
+      for (const platform of platforms) {
+        const newPlatform = {
+          id: platform.platform.id,
+          name: platform.platform.name,
+        };
+        console.log('Platform ID:', newPlatform.id, 'Platform Name:', newPlatform.name);
 
+        // Pour chaque platforms on essai de la créer si elel n'existe pas
+        const [platformInstance] = await Platform.findOrCreate({
+          where: { id: newPlatform.id },
+          defaults: newPlatform,
+        });
+        // On ajoute l'association entre la platform et le jeu
+        await gameInstance.addPlatform(platformInstance);
+      }
       // Si le jeu a été créé, envoyer une réponse avec le jeu créé
       res.status(201).json(gameInstance);
     } catch (err) {

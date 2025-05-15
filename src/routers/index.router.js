@@ -29,7 +29,7 @@ router.route("/User/:id").get(userController.getOne);
 
 router.route("/Realizations").post(realizationController.create);
 
-router.route("/Realizations/:id").delete(realizationController.delete);
+router.route("/Realizations/:id").delete(realizationController.delete).get(realizationController.getOne);
 
 router.route("/Realizations/:id/Like").post(Userlike.realization);
 

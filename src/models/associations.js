@@ -49,7 +49,7 @@ User.hasMany(Challenge, {
   foreignKey: "userId",
 });
 Challenge.belongsTo(User, {
-  as: "user",
+  as: "creator",
   foreignKey: "userId",
 });
 

@@ -286,7 +286,7 @@ const challenges = [
     title: "Obtenir tous les animaux de compagnie dans Animal Crossing: New Horizons",
     description: "Attrape chaque animal de compagnie disponible dans le jeu.",
     difficulty: "Medium",
-    game: [9],
+    game: [18],
     category: [3], // 100% Completion
     user: [7], // NinjaXtreme (deux défis attribués ici)
   },
@@ -413,7 +413,7 @@ const realizations = [
     link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
     status: true,
     challenge: [1], // Challenge ID pour "Speedrun sur Alex Kidd in Miracle World"
-    user: [2, 4], // ShadowX et RoguePlayer
+    user: [2], // ShadowX
   },
   {
     link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
@@ -425,7 +425,7 @@ const realizations = [
     link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
     status: true,
     challenge: [3], // Challenge ID pour "Terminer Super Mario Bros. sans utiliser de warp zones"
-    user: [5, 7], // GameLord23 et NinjaXtreme
+    user: [5], // GameLord23
   },
   {
     link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
@@ -443,7 +443,7 @@ const realizations = [
     link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
     status: true,
     challenge: [6], // Challenge ID pour "Terminer The Witcher 3 sans utiliser de potions"
-    user: [2, 6], // ShadowX et ProGamer007
+    user: [2], // ShadowX
   },
   {
     link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
@@ -455,7 +455,7 @@ const realizations = [
     link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
     status: true,
     challenge: [8], // Challenge ID pour "Construire une base sous-marine dans Minecraft"
-    user: [7, 10], // NinjaXtreme et EliteGamer
+    user: [7], // NinjaXtreme
   },
   {
     link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
@@ -468,6 +468,18 @@ const realizations = [
     status: true,
     challenge: [10], // Challenge ID pour "Chasser un animal légendaire dans Red Dead Redemption 2"
     user: [5], // GameLord23
+  },
+  {
+    link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+    status: true,
+    challenge: [10], // Challenge ID pour "Chasser un animal légendaire dans Red Dead Redemption 2"
+    user: [7], // GameLord23
+  },
+  {
+    link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+    status: true,
+    challenge: [10], // Challenge ID pour "Chasser un animal légendaire dans Red Dead Redemption 2"
+    user: [6], // GameLord23
   },
 ];
 

@@ -576,7 +576,7 @@ for (const challenge of challenges) {
 
     for (const userId of challenge.user) {
       const user = await User.findByPk(userId);
-      await newChallenge.setUser(user);
+      await newChallenge.setCreator(user);
     }
   } catch (e) {
     console.log("error with challenge:", challenge.name);

@@ -9,19 +9,21 @@ import { UserLikeRealization } from "./userlikerealization.model.js";
 
 Game.hasMany(Challenge, {
   onDelete: "CASCADE",
-  foreignKey: "gameId",
+  foreignKey: "challengeId",
 });
 Challenge.belongsTo(Game, {
-  as: "game",
   foreignKey: "gameId",
 });
 
 Game.belongsToMany(Platform, {
   as: "platform",
+  foreignKey: "gameId",
   through: "GamePlatform",
 });
 Platform.belongsToMany(Game, {
+  as: "game",
   through: "GamePlatform",
+  foreignKey: "platformId"
 });
 
 Category.hasMany(Challenge, {

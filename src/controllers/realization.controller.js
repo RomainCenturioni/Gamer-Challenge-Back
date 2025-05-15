@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { Realization, Game, Category, User, Challenge } from "../models/associations.js";
 
 export const realizationController = {
@@ -45,6 +46,11 @@ export const realizationController = {
     }
   },
 
+=======
+import { Realization } from "../models/associations.js";
+
+export const realizationController = {
+>>>>>>> liaison-api-externe
   async create(req, res) {
     const inputData = req.body;
     const realization = await Realization.create(inputData);
@@ -63,10 +69,14 @@ export const realizationController = {
           association: "challenge",
           include: ["game", "category"],
         },
+<<<<<<< HEAD
         {
           association: "user",
           attributes: ["id", "name"],
         },
+=======
+        "user",
+>>>>>>> liaison-api-externe
       ],
       limit: 3,
       order: [["createdAt", "DESC"]],

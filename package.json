@@ -25,6 +25,10 @@
   "homepage": "https://github.com/O-clock-Samoussas/gamer-challenges-back#readme",
   "description": "",
   "dependencies": {
+<<<<<<< HEAD
+=======
+    "axios": "^1.9.0",
+>>>>>>> liaison-api-externe
     "bcryptjs": "^3.0.2",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",

@@ -13,6 +13,9 @@ router.route("/Games").get(gameController.getAll).post(gameController.create);
 
 router.route("/Games/:id").get(gameController.getOne).delete(gameController.delete);
 
+router.route('/Games/search/api').get(gameController.search);
+router.route('/Games/import/:id').post(gameController.import);
+
 router.route("/Category").get(categoryController.getAll);
 
 router.route("Category/:id").get(categoryController.getOne);

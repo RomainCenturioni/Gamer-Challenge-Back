@@ -12,6 +12,7 @@ Game.hasMany(Challenge, {
   foreignKey: "challengeId",
 });
 Challenge.belongsTo(Game, {
+  as:"game",
   foreignKey: "gameId",
 });
 

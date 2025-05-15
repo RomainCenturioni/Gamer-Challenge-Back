@@ -1,10 +1,4 @@
-import {
-  Realization,
-  Game,
-  Category,
-  User,
-  Challenge,
-} from '../models/associations.js';
+import { Realization, Game, Category, User, Challenge } from "../models/associations.js";
 
 export const realizationController = {
   async getOne(req, res) {
@@ -15,25 +9,25 @@ export const realizationController = {
         include: [
           {
             model: User,
-            as: 'user',
-            attributes: ['id', 'name'],
+            as: "user",
+            attributes: ["id", "name"],
           },
           {
             model: Challenge,
-            as: 'challenge',
+            as: "challenge",
             include: [
               {
                 model: Game,
-                as: 'game',
+                as: "game",
               },
               {
                 model: Category,
-                as: 'category',
+                as: "category",
               },
               {
                 model: User,
-                as: 'creator',
-                attributes: ['id', 'name'],
+                as: "creator",
+                attributes: ["id", "name"],
               },
             ],
           },
@@ -41,16 +35,13 @@ export const realizationController = {
       });
 
       if (!realization) {
-        return res.status(404).json({ message: 'Réalisation non trouvée' });
+        return res.status(404).json({ message: "Réalisation non trouvée" });
       }
 
       res.json(realization);
     } catch (error) {
-      console.error(
-        'Erreur lors de la récupération de la réalisation :',
-        error,
-      );
-      res.status(500).json({ message: 'Erreur serveur' });
+      console.error("Erreur lors de la récupération de la réalisation :", error);
+      res.status(500).json({ message: "Erreur serveur" });
     }
   },
 
@@ -69,16 +60,16 @@ export const realizationController = {
     const threeLastRealization = await Realization.findAll({
       include: [
         {
-          association: 'challenge',
-          include: ['game', 'category'],
+          association: "challenge",
+          include: ["game", "category"],
         },
         {
-          association: 'user',
-          attributes: ['id', 'name'],
+          association: "user",
+          attributes: ["id", "name"],
         },
       ],
       limit: 3,
-      order: [['createdAt', 'DESC']],
+      order: [["createdAt", "DESC"]],
     });
     res.json(threeLastRealization);
   },

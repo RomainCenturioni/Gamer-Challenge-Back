@@ -14,6 +14,10 @@ export const challengeController = {
             as: "realization",
             include: [{ model: User, as: "user", attributes: ["id", "name"] }],
           },
+          {
+            association: "creator",
+            attributes: ["id", "name"],
+          },
         ],
         order: [["createdAt", "DESC"]],
       });

@@ -1,10 +1,12 @@
+
 import { Game, Platform } from '../models/associations.js';
 import axios from 'axios';
+
 
 export const gameController = {
   async getAll(_, res) {
     const games = await Game.findAll({
-      include: 'platform',
+      include: "platform",
     });
     res.json(games);
   },
@@ -12,7 +14,7 @@ export const gameController = {
   async getOne(req, res) {
     const { id } = req.params;
     const game = await Game.findByPk(id, {
-      include: 'platform',
+      include: "platform",
     });
     res.json(game);
   },
@@ -31,22 +33,22 @@ export const gameController = {
 
   async search(req, res) {
     const { queryGame } = req.query;
-    if (!queryGame) return res.status(400).json({ error: 'Requête vide' });
+    if (!queryGame) return res.status(400).json({ error: "Requête vide" });
 
     try {
-      const response = await axios.get('https://api.rawg.io/api/games', {
+      const response = await axios.get("https://api.rawg.io/api/games", {
         params: {
           key: process.env.RAWG_API_KEY,
           search: queryGame,
-          ordering: '-rating',
+          ordering: "-rating",
           page_size: 15,
         },
       });
 
       res.json(response.data);
     } catch (err) {
-      console.error('Erreur RAWG :', err.message);
-      res.status(500).json({ error: 'Erreur RAWG' });
+      console.error("Erreur RAWG :", err.message);
+      res.status(500).json({ error: "Erreur RAWG" });
     }
   },
   async import(req, res) {
@@ -66,7 +68,7 @@ export const gameController = {
         description: game.description_raw,
         release: game.released,
         image: game.background_image,
-        kind: game.genres?.[0].name || 'Inconnu',
+        kind: game.genres?.[0].name || "Inconnu",
       };
 
       // Vérifier si le jeu existe déjà dans la base de données
@@ -77,8 +79,8 @@ export const gameController = {
 
       // Si le jeu existe déjà dans la base de données, répondre avec un statut 409
       if (!created) {
-        console.log('Déjà importé !');
-        return res.status(409).json({ message: 'Déjà importé !' });
+        console.log("Déjà importé !");
+        return res.status(409).json({ message: "Déjà importé !" });
       }
       // Récupération des platforms en du jeu
       const platforms = game.platforms || [];
@@ -100,17 +102,17 @@ export const gameController = {
       // Si le jeu a été créé, envoyer une réponse avec le jeu créé
       res.status(201).json(gameInstance);
     } catch (err) {
-      console.error('Erreur import RAWG :', err.message);
+      console.error("Erreur import RAWG :", err.message);
 
       // Vérifier si l'erreur est liée à Axios pour envoyer un message spécifique
       if (err.response) {
         return res.status(err.response.status).json({
-          message: err.response.data.message || 'Erreur inconnue depuis RAWG',
+          message: err.response.data.message || "Erreur inconnue depuis RAWG",
         });
       }
 
       // Erreur générale (par exemple, problème de réseau)
-      res.status(500).json({ error: 'Échec importation RAWG' });
+      res.status(500).json({ error: "Échec importation RAWG" });
     }
   },
 };

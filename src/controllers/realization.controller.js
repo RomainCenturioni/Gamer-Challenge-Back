@@ -61,7 +61,7 @@ export const realizationController = {
       include: [
         {
           association: "challenge",
-          include: ["game", "category"],
+          include: ["game", "category", "creator"],
         },
         {
           association: "user",

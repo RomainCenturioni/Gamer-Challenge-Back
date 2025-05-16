@@ -7,6 +7,7 @@ export const gameController = {
   async getAll(_, res) {
     const games = await Game.findAll({
       include: "platform",
+      order: [["createdAt", "DESC"]]
     });
     res.json(games);
   },
@@ -15,7 +16,6 @@ export const gameController = {
     const { id } = req.params;
     const game = await Game.findByPk(id, {
       include: "platform",
-      order: [["createdAt", "DESC"]]
     });
     res.json(game);
   },

@@ -10,7 +10,8 @@ UserLikeRealization.init({
         references: {
             model: 'User',
             key: 'id'
-        }
+        },
+        onDelete:"CASCADE"
 
     },
     realization_id: {
@@ -20,6 +21,7 @@ UserLikeRealization.init({
             model: 'Realization',
             key: 'id'
         },
+        onDelete:"CASCADE"
     }
 }, {
     sequelize,

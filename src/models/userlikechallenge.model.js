@@ -10,7 +10,8 @@ UserLikeChallenge.init({
         references: {
             model: 'User',
             key: 'id'
-        }
+        },
+        onDelete:"CASCADE"
 
     },
     challenge_id: {
@@ -20,6 +21,7 @@ UserLikeChallenge.init({
             model: 'Challenge',
             key: 'id'
         },
+        onDelete:"CASCADE"
     }
 }, {
     sequelize,

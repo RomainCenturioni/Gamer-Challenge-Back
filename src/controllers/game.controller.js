@@ -15,6 +15,7 @@ export const gameController = {
     const { id } = req.params;
     const game = await Game.findByPk(id, {
       include: "platform",
+      order: [["createdAt", "DESC"]]
     });
     res.json(game);
   },

@@ -53,7 +53,7 @@ export const authController = {
         maxAge: 2 * 60 * 60 * 1000,
       });
 
-      res.status(200).json({ message: "Connexion réussie", pseudo: user.name });
+      res.status(200).json({ message: "Connexion réussie", pseudo: user.name, id: user.id });
     } catch (err) {
       res.status(500).json({ error: "Erreur lors de la connexion" });
     }
@@ -67,7 +67,7 @@ export const authController = {
 
     try {
       const payload = jwt.verify(token, JWT_SECRET);
-      res.json({ pseudo: payload.name });
+      res.json({ id: payload.id, pseudo: payload.name });
     } catch (err) {
       res.status(401).json({ error: "Token invalide ou expiré" });
     }

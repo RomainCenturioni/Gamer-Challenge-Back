@@ -1,4 +1,4 @@
-import { Category, Challenge, Game, Realization } from "../models/associations.js";
+import { Category, Challenge, Game } from "../models/associations.js";
 
 export const categoryController = {
   async getAll(_, res) {
@@ -9,16 +9,11 @@ export const categoryController = {
           as: "challenge",
           include: [
             {
-              model: Realization,
-              as: "realization",
-              limit: 3,
-              order: [["createdAt", "DESC"]],
-            },
-            {
               model: Game,
               as: "game",
             },
           ],
+          limit: 3,
           order: [["createdAt", "DESC"]],
         },
       ],

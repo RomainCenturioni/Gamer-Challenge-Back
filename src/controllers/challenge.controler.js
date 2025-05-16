@@ -89,24 +89,8 @@ export const challengeController = {
   },
   async create(req, res) {
     const inputData = req.body;
-  
-    try {
-      const challenge = await Challenge.create(inputData);
-  
-      // Rechargement avec les relations associées
-      const fullChallenge = await Challenge.findByPk(challenge.id, {
-        include: [
-          { model: User, as: "creator", attributes: ["id", "name"] },
-          { model: Game, as: "game", attributes: ["id", "title"] },
-          { model: Category, as: "category", attributes: ["id", "title"] },
-        ],
-      });
-  
-      res.status(201).json(fullChallenge);
-    } catch (err) {
-      console.error(err);
-      res.status(500).json({ error: "Erreur lors de la création du challenge" });
-    }
+    const challenge = await Challenge.create(inputData);
+    res.status(201).json(challenge);
   },
   async update(req, res) {
     const { id } = req.params;

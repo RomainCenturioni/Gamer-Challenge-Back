@@ -57,14 +57,12 @@ Challenge.belongsTo(User, {
 });
 
 User.belongsToMany(Challenge, {
-  onDelete:"CASCADE",
   through: UserLikeChallenge,
   foreignKey: "user_id",
   otherKey: "challenge_id",
   as: "likeChallenge",
 });
 Challenge.belongsToMany(User, {
-  onDelete:"CASCADE",
   through: UserLikeChallenge,
   foreignKey: "challenge_id",
   otherKey: "user_id",
@@ -81,14 +79,12 @@ Realization.belongsTo(User, {
 });
 
 User.belongsToMany(Realization, {
-  onDelete:"CASCADE",
   through: UserLikeRealization,
   foreignKey: "user_id",
   otherKey: "realization_id",
   as: "likeRealization",
 });
 Realization.belongsToMany(User, {
-  onDelete:"CASCADE",
   through: UserLikeRealization,
   foreignKey: "realization_id",
   otherKey: "user_id",

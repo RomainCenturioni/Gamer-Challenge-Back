@@ -96,7 +96,7 @@ export const challengeController = {
       // Rechargement avec les relations associées
       const fullChallenge = await Challenge.findByPk(challenge.id, {
         include: [
-          { model: User, as: "creator", attributes: ["id", "pseudo"] },
+          { model: User, as: "creator", attributes: ["id", "name"] },
           { model: Game, as: "game", attributes: ["id", "title"] },
           { model: Category, as: "category", attributes: ["id", "title"] },
         ],

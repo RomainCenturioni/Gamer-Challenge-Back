@@ -7,7 +7,7 @@ const app = express();
 app.use(cookieParser());
 app.use(
   cors({
-    origin: "http://hugocastejon-server.eddi.cloud:8081/",
+    origin: "http://hugocastejon-server.eddi.cloud:8443/",
     credentials: true,
   }),
 );

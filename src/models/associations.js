@@ -8,10 +8,10 @@ import { UserLikeChallenge } from "./userlikechallenge.model.js";
 import { UserLikeRealization } from "./userlikerealization.model.js";
 
 Game.hasMany(Challenge, {
-  onDelete: "CASCADE",
   foreignKey: "challengeId",
 });
 Challenge.belongsTo(Game, {
+  onDelete: "CASCADE",
   as:"game",
   foreignKey: "gameId",
 });

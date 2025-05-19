@@ -3,6 +3,7 @@ import cors from 'cors';
 import { router } from './src/routers/index.router.js';
 import cookieParser from 'cookie-parser';
 
+console.log(process.env.NODE_ENV);
 const app = express();
 app.use(cookieParser());
 app.use(
@@ -15,7 +16,6 @@ app.use(
 app.use(express.json());
 
 app.use(router);
-console.log(process.env.NODE_ENV);
 
 const PORT = process.env.PORT ?? 8080;
 

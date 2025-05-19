@@ -1,4 +1,5 @@
 import {
+  Category,
   Challenge,
   Game,
   Platform,

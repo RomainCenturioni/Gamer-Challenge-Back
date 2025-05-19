@@ -23,7 +23,7 @@ export const authController = {
         email,
         password: hashedPassword,
         name,
-        role: "user", // forçage du rôle à "user"
+        role: "user",
       });
 
       res.status(201).json({ message: "Compte créé", userId: newUser.id });

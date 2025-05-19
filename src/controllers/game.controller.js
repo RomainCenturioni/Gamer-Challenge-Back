@@ -1,23 +1,62 @@
-
-import { Game, Platform } from '../models/associations.js';
+import {
+  Challenge,
+  Game,
+  Platform,
+  Realization,
+} from '../models/associations.js';
 import axios from 'axios';
-
 
 export const gameController = {
   async getAll(_, res) {
     const games = await Game.findAll({
-      include: "platform",
-      order: [["createdAt", "DESC"]]
+      include: 'platform',
+      order: [['createdAt', 'DESC']],
     });
     res.json(games);
   },
 
   async getOne(req, res) {
-    const { id } = req.params;
-    const game = await Game.findByPk(id, {
-      include: "platform",
-    });
-    res.json(game);
+    try {
+      const { id } = req.params;
+  
+      const game = await Game.findByPk(id, {
+        include: [
+          { model: Platform, as: 'platform' },
+  
+          {
+            model: Challenge,
+            as: 'challenge',
+            required: false,
+            separate: true, // permet `limit`, `order` sur sous-requête
+            limit: 1,
+            order: [
+              [
+                sequelize.literal(`(
+                  SELECT COUNT(*) 
+                  FROM "UserLikeChallenge" 
+                  WHERE "UserLikeChallenge"."challenge_id" = "challenge"."id"
+                )`),
+                'DESC'
+              ]
+            ],
+            include: [
+              {
+                model: Realization,
+                as: 'realization',
+                order: [['createdAt', 'DESC']],
+              },
+            ],
+          },
+        ],
+      });
+  
+      if (!game) return res.status(404).json({ error: "Jeu non trouvé" });
+  
+      res.json(game);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: "Erreur serveur" });
+    }
   },
   async create(req, res) {
     const inputData = req.body;
@@ -34,22 +73,22 @@ export const gameController = {
 
   async search(req, res) {
     const { queryGame } = req.query;
-    if (!queryGame) return res.status(400).json({ error: "Requête vide" });
+    if (!queryGame) return res.status(400).json({ error: 'Requête vide' });
 
     try {
-      const response = await axios.get("https://api.rawg.io/api/games", {
+      const response = await axios.get('https://api.rawg.io/api/games', {
         params: {
           key: process.env.RAWG_API_KEY,
           search: queryGame,
-          ordering: "-rating",
+          ordering: '-rating',
           page_size: 15,
         },
       });
 
       res.json(response.data);
     } catch (err) {
-      console.error("Erreur RAWG :", err.message);
-      res.status(500).json({ error: "Erreur RAWG" });
+      console.error('Erreur RAWG :', err.message);
+      res.status(500).json({ error: 'Erreur RAWG' });
     }
   },
   async import(req, res) {
@@ -69,7 +108,7 @@ export const gameController = {
         description: game.description_raw,
         release: game.released,
         image: game.background_image,
-        kind: game.genres?.[0].name || "Inconnu",
+        kind: game.genres?.[0].name || 'Inconnu',
       };
 
       // Vérifier si le jeu existe déjà dans la base de données
@@ -80,8 +119,8 @@ export const gameController = {
 
       // Si le jeu existe déjà dans la base de données, répondre avec un statut 409
       if (!created) {
-        console.log("Déjà importé !");
-        return res.status(409).json({ message: "Déjà importé !" });
+        console.log('Déjà importé !');
+        return res.status(409).json({ message: 'Déjà importé !' });
       }
       // Récupération des platforms en du jeu
       const platforms = game.platforms || [];
@@ -90,7 +129,12 @@ export const gameController = {
           id: platform.platform.id,
           name: platform.platform.name,
         };
-        console.log('Platform ID:', newPlatform.id, 'Platform Name:', newPlatform.name);
+        console.log(
+          'Platform ID:',
+          newPlatform.id,
+          'Platform Name:',
+          newPlatform.name,
+        );
 
         // Pour chaque platforms on essai de la créer si elel n'existe pas
         const [platformInstance] = await Platform.findOrCreate({
@@ -103,17 +147,17 @@ export const gameController = {
       // Si le jeu a été créé, envoyer une réponse avec le jeu créé
       res.status(201).json(gameInstance);
     } catch (err) {
-      console.error("Erreur import RAWG :", err.message);
+      console.error('Erreur import RAWG :', err.message);
 
       // Vérifier si l'erreur est liée à Axios pour envoyer un message spécifique
       if (err.response) {
         return res.status(err.response.status).json({
-          message: err.response.data.message || "Erreur inconnue depuis RAWG",
+          message: err.response.data.message || 'Erreur inconnue depuis RAWG',
         });
       }
 
       // Erreur générale (par exemple, problème de réseau)
-      res.status(500).json({ error: "Échec importation RAWG" });
+      res.status(500).json({ error: 'Échec importation RAWG' });
     }
   },
 };

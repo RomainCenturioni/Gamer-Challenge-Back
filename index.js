@@ -2,21 +2,19 @@ import express from 'express';
 import cors from 'cors';
 import { router } from './src/routers/index.router.js';
 import cookieParser from 'cookie-parser';
-import { configDotenv } from 'dotenv';
-configDotenv();
+import dotenv from "dotenv";
+dotenv.config();
 
 const app = express();
 app.use(cookieParser());
 app.use(
   cors({
-    origin: ["http://hugocastejon-server.eddi.cloud:8443", "http://localhost:8443"],
+    origin: ["https://hugocastejon-server.eddi.cloud", "http://localhost:8443"],
     credentials: true,
   }),
 );
 
 app.use(express.json());
-
-app.use(cookieParser());
 
 app.use(router);
 console.log(process.env.NODE_ENV);

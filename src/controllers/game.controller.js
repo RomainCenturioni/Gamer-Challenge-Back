@@ -24,11 +24,10 @@ export const gameController = {
       const game = await Game.findByPk(id, {
         include: [
           { model: Platform, as: 'platform' },
-  
           {
             model: Challenge,
             required: false,
-            separate: true, // permet `limit`, `order` sur sous-requête
+            separate: true,
             limit: 1,
             order: [
               [
@@ -49,7 +48,7 @@ export const gameController = {
               {
                 model: Category,
                 as: 'category',
-              }
+              },
             ],
           },
         ],
@@ -57,12 +56,32 @@ export const gameController = {
   
       if (!game) return res.status(404).json({ error: "Jeu non trouvé" });
   
-      res.json(game);
+      // Récupération de la réalisation la plus récente pour ce jeu
+      const latestRealization = await Realization.findOne({
+        include: [
+          {
+            model: Challenge,
+            as: 'challenge',
+            where: { gameId: id },
+            attributes: [], 
+          },
+        ],
+        order: [['createdAt', 'DESC']],
+      });
+  
+
+      res.json({
+        game,
+        latestRealization, 
+      });
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: "Erreur serveur" });
     }
   },
+  
+
+
   async create(req, res) {
     const inputData = req.body;
     const game = await Game.create(inputData);

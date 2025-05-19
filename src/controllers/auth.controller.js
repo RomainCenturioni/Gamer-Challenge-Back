@@ -67,7 +67,7 @@ export const authController = {
 
     try {
       const payload = jwt.verify(token, JWT_SECRET);
-      res.json({ id: payload.id, pseudo: payload.name });
+      res.json({ id: payload.id, pseudo: payload.name, role: payload.role });
     } catch (err) {
       res.status(401).json({ error: "Token invalide ou expiré" });
     }

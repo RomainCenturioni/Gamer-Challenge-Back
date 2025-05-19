@@ -5,6 +5,7 @@ import {
   Realization,
 } from '../models/associations.js';
 import axios from 'axios';
+import sequelize from '../models/client.js';
 
 export const gameController = {
   async getAll(_, res) {
@@ -25,7 +26,6 @@ export const gameController = {
   
           {
             model: Challenge,
-            as: 'challenge',
             required: false,
             separate: true, // permet `limit`, `order` sur sous-requête
             limit: 1,

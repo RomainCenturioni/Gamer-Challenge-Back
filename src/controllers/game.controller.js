@@ -66,10 +66,6 @@ export const gameController = {
             where: { gameId: id },
             include: [{ model: Category, as: 'category' }],
           },
-          {
-            model: User,
-            as: 'user',
-          },
         ],
         order: [['createdAt', 'DESC']],
       });

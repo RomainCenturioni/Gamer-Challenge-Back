@@ -56,29 +56,35 @@ export const gameController = {
   
       if (!game) return res.status(404).json({ error: "Jeu non trouvé" });
   
-      // Récupération de la réalisation la plus récente pour ce jeu
+      const mostLikedChallenge = game.Challenges?.[0] ?? null;
+  
       const latestRealization = await Realization.findOne({
         include: [
           {
             model: Challenge,
             as: 'challenge',
             where: { gameId: id },
-            attributes: [], 
+            include: [{ model: Category, as: 'category' }],
+          },
+          {
+            model: User,
+            as: 'user',
           },
         ],
         order: [['createdAt', 'DESC']],
       });
   
-
       res.json({
-        game,
-        latestRealization, 
+        ...game.toJSON(), 
+        mostLikedChallenge,
+        latestRealization,
       });
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: "Erreur serveur" });
     }
-  },
+  }
+  ,
   
 
 

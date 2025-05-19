@@ -45,6 +45,10 @@ export const gameController = {
                 as: 'realization',
                 order: [['createdAt', 'DESC']],
               },
+              {
+                model: Category,
+                as: 'category',
+              }
             ],
           },
         ],

@@ -34,7 +34,7 @@ export const gameController = {
                 sequelize.literal(`(
                   SELECT COUNT(*) 
                   FROM "UserLikeChallenge" 
-                  WHERE "UserLikeChallenge"."challenge_id" = "challenge"."id"
+                  WHERE "UserLikeChallenge"."challenge_id" = "Challenge"."id"
                 )`),
                 'DESC'
               ]

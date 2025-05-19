@@ -71,10 +71,13 @@ export const gameController = {
       });
   
       res.json({
-        ...game.toJSON(), 
-        mostLikedChallenge,
+        game: {
+          ...game.toJSON(),
+          mostLikedChallenge,
+        },
         latestRealization,
       });
+      
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: "Erreur serveur" });

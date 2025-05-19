@@ -48,7 +48,7 @@ export const authController = {
       const token = jwt.sign({ id: user.id, name: user.name, email: user.email, role: user.role }, JWT_SECRET, { expiresIn: "2h" });
       res.cookie("token", token, {
         httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
+        secure: true,
         sameSite: "lax",
         maxAge: 2 * 60 * 60 * 1000,
       });
@@ -76,7 +76,7 @@ export const authController = {
   async logout(req, res) {
     res.clearCookie("token", {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production", // ← virgule ajoutée ici
+      secure: true, 
       sameSite: "strict",
     });
     res.status(200).json({ message: "Déconnecté" });

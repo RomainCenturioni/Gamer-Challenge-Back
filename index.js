@@ -1,13 +1,9 @@
-import dotenv from "dotenv";
-dotenv.config();
 import express from 'express';
 import cors from 'cors';
 import { router } from './src/routers/index.router.js';
 import cookieParser from 'cookie-parser';
 
 
-console.log(process.env.NODE_ENV);
-console.log("PG_URL:", process.env.PG_URL);
 const app = express();
 app.use(cookieParser());
 app.use(

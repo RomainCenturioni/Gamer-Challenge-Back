@@ -15,6 +15,10 @@ Category.init({
     color: {
         type: DataTypes.STRING(20),
         allowNull: false
+    },
+    image: {
+        type: DataTypes.TEXT,
+        allowNull: true
     }
 }, {
     sequelize,

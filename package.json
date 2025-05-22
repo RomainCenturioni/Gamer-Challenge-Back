@@ -33,6 +33,7 @@
     "express": "^5.1.0",
     "jsonwebtoken": "^9.0.2",
     "pg": "^8.15.5",
+    "pnpm": "^10.11.0",
     "postgres": "^3.4.5",
     "sanitize-html": "^2.16.0",
     "sequelize": "^6.37.7",
